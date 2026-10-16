@@ -1,0 +1,47 @@
+:root {
+  /* Colour */
+  --color-green: #154a35;
+  --color-green-deep: #0f3426;
+  --color-green-ink: #0a2119;
+  --color-paper: #f3efe6;
+  --color-white: #fcfbf7;
+  --color-stone: #d9cfbd;
+  --color-clay: #a7744a;
+  --color-ink-muted: rgb(10 33 25 / 0.62);
+
+  /* Typography */
+  --font-display: 'Fraunces', 'Times New Roman', serif;
+  --font-body: 'Instrument Sans', 'Helvetica Neue', Arial, sans-serif;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: clamp(1.125rem, 0.9rem + 0.6vw, 1.5rem);
+  --text-xl: clamp(1.5rem, 1.1rem + 1.4vw, 2.5rem);
+  --text-display: clamp(3.75rem, 1rem + 13vw, 17rem);
+  --text-headline: clamp(2.75rem, 0.8rem + 7.2vw, 9.5rem);
+
+  --leading-tight: 0.88;
+  --leading-body: 1.5;
+  --tracking-display: -0.035em;
+  --tracking-label: 0.14em;
+
+  /* Spacing */
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2.5rem;
+  --space-xl: 4rem;
+  --space-2xl: 7rem;
+  --gutter: clamp(1rem, 0.4rem + 2.6vw, 3rem);
+
+  /* Radius */
+  --radius-sm: 2px;
+  --radius-md: 6px;
+
+  /* Motion — mirrored in src/animation/entrance.ts */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --duration-slow: 1.6s;
+}

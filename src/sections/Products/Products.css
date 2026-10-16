@@ -1,0 +1,333 @@
+/*
+ * The section rises over the end of the market walk like a sheet of paper:
+ * it overlaps the last screen of the entrance and its side insets / top corners
+ * (--sheet-*) are scrubbed to 0 in animation/products.ts.
+ */
+.products {
+  --sheet-x: 5vw;
+  --sheet-r: 2.5rem;
+  /* Showcase palette, tweened to green for products marked tone: 'green' (literal values so GSAP can interpolate) */
+  --products-bg: #f3efe6;
+  --products-ink: #154a35;
+  --products-muted: rgb(10 33 25 / 0.62);
+  --products-tag-bg: #154a35;
+  --products-tag-ink: #fcfbf7;
+  position: relative;
+  z-index: 2;
+  margin-top: -100vh;
+  background: var(--products-bg);
+  color: var(--color-green-ink);
+  clip-path: inset(0 var(--sheet-x) 0 var(--sheet-x) round var(--sheet-r) var(--sheet-r) 0 0);
+}
+
+/* Intro */
+.products__intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-rows: 1fr auto;
+  gap: var(--space-lg) var(--space-xl);
+  min-height: 100vh;
+  padding: 16vh var(--gutter) 12vh;
+}
+
+/* Sketches: the visual lead of the intro — large, on a stone disc, with the sequence of names */
+.products__sketches {
+  grid-row: 1 / -1;
+  grid-column: 2;
+  align-self: center;
+  justify-self: center;
+  display: grid;
+  justify-items: center;
+  gap: var(--space-lg);
+  width: min(40vw, 66vh, 40rem);
+}
+
+.products__sketch-defs {
+  position: absolute;
+}
+
+.products__sketch-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+}
+
+.products__sketch-disc {
+  position: absolute;
+  inset: 4%;
+  border-radius: 50%;
+  background: #e8dfcf;
+}
+
+.products__sketch {
+  position: absolute;
+  inset: 12%;
+}
+
+.products__sketch svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  fill: none;
+  stroke: var(--color-green);
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.products__sketch-names {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.2rem 1.1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-style: italic;
+  font-weight: 300;
+  color: var(--color-green);
+}
+
+.products__sketch-names li {
+  opacity: 0.28;
+}
+
+.products__title {
+  grid-row: 1;
+  grid-column: 1;
+  align-self: end;
+  font-family: var(--font-display);
+  font-size: var(--text-headline);
+  font-weight: 350;
+  font-variation-settings: 'opsz' 144;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-display);
+  color: var(--color-green);
+}
+
+.products__title .line:nth-child(2) {
+  padding-left: 0.9em;
+  font-style: italic;
+  font-weight: 300;
+}
+
+.products__lead {
+  grid-row: 2;
+  grid-column: 1;
+  max-width: 34ch;
+  padding-bottom: 0.6em;
+  font-size: var(--text-lg);
+  line-height: 1.45;
+  color: var(--color-ink-muted);
+}
+
+/* Showcase — desktop: sticky stage */
+.products__showcase {
+  position: relative;
+  height: calc(var(--count) * 100vh);
+}
+
+.products__stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.products__counter {
+  position: absolute;
+  top: 14vh;
+  left: var(--gutter);
+  display: flex;
+  gap: 0.4em;
+  color: var(--products-muted);
+}
+
+.products__counter-window {
+  display: block;
+  height: 1.2em;
+  overflow: hidden;
+  color: var(--products-ink);
+}
+
+.products__counter-reel {
+  display: grid;
+  line-height: 1.2em;
+}
+
+.products__index {
+  position: absolute;
+  top: 20vh;
+  left: var(--gutter);
+  display: grid;
+  gap: 0.1em;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 0.8rem + 2.6vw, 3.75rem);
+  font-weight: 300;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: var(--products-ink);
+}
+
+.products__index li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  opacity: 0.22;
+}
+
+.products__index .label {
+  font-size: 0.625rem;
+}
+
+.products__items {
+  position: absolute;
+  inset: 0;
+}
+
+.product {
+  position: absolute;
+  inset: 0;
+}
+
+.product__media {
+  position: absolute;
+  top: 12vh;
+  right: var(--gutter);
+  bottom: 8vh;
+  width: 42vw;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  background: var(--color-stone);
+  will-change: clip-path;
+}
+
+.product__media .photo {
+  will-change: transform;
+}
+
+.product__body {
+  position: absolute;
+  left: var(--gutter);
+  bottom: 9vh;
+  display: grid;
+  justify-items: start;
+  gap: var(--space-sm);
+  max-width: 24rem;
+}
+
+.product__tag {
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  background: var(--products-tag-bg);
+  color: var(--products-tag-ink);
+}
+
+/* On desktop the index already shows the names */
+.product__name {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.product__text {
+  font-size: var(--text-lg);
+  line-height: 1.45;
+  color: var(--products-muted);
+}
+
+/* Below desktop: a simple vertical list */
+@media (max-width: 1023.98px) {
+  .products__intro {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    min-height: auto;
+    padding: 16vh var(--gutter) 10vh;
+  }
+
+  .products__sketches {
+    grid-row: 1;
+    grid-column: 1;
+    width: min(26rem, 80vw);
+    margin-bottom: var(--space-lg);
+  }
+
+  .products__title {
+    grid-row: 2;
+  }
+
+  .products__lead {
+    grid-row: 3;
+  }
+
+  .products__showcase {
+    height: auto;
+  }
+
+  .products__stage {
+    position: static;
+    height: auto;
+    overflow: visible;
+  }
+
+  .products__counter,
+  .products__index {
+    display: none;
+  }
+
+  .products__items {
+    position: static;
+    display: grid;
+    gap: var(--space-2xl);
+    padding: 0 var(--gutter) var(--space-2xl);
+  }
+
+  .product {
+    position: static;
+    display: grid;
+    gap: var(--space-md);
+  }
+
+  .product__media {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+  }
+
+  .product__body {
+    position: static;
+    max-width: 32rem;
+  }
+
+  .product__name {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip-path: none;
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 300;
+    line-height: 1;
+    color: var(--color-green);
+  }
+}
+
+@media (max-width: 767.98px) {
+  .products {
+    margin-top: -80vh;
+  }
+
+  .products__title .line:nth-child(2) {
+    padding-left: 0;
+  }
+}

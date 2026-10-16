@@ -1,0 +1,306 @@
+/*
+ * "Visitar": the green of the producers section opens in a circle centred on the
+ * building's sign to reveal this compact sheet (clip-path animated in animation/visit.ts).
+ */
+.visit {
+  /* The panel slides in from the right: keep it from widening the page */
+  overflow-x: clip;
+  background: var(--color-green-deep);
+}
+
+.visit__sheet {
+  padding: 14vh var(--gutter) 12vh;
+  background: var(--color-paper);
+  color: var(--color-green-ink);
+  will-change: clip-path;
+}
+
+.visit__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-md);
+  max-width: 76rem;
+  margin: 0 auto var(--space-lg);
+  padding-bottom: var(--space-md);
+  border-bottom: 1px solid rgb(10 33 25 / 0.12);
+}
+
+.visit__title {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 0.3em;
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 1.4rem + 3.4vw, 4.75rem);
+  font-weight: 350;
+  line-height: 1;
+  letter-spacing: -0.035em;
+  color: var(--color-green);
+}
+
+.visit__title .line:nth-child(2) {
+  font-style: italic;
+  font-weight: 300;
+}
+
+/* Open now / closed */
+.visit__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 0.95rem;
+  border-radius: 999px;
+  background: rgb(10 33 25 / 0.06);
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+
+.visit__status-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: #a3402a;
+}
+
+.visit__status.is-open {
+  background: rgb(21 74 53 / 0.1);
+  color: var(--color-green);
+}
+
+.visit__status.is-open .visit__status-dot {
+  background: var(--color-green);
+  box-shadow: 0 0 0 0.25rem rgb(21 74 53 / 0.18);
+}
+
+.visit__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(1.5rem, 4vw, 4rem);
+  max-width: 76rem;
+  margin: 0 auto;
+}
+
+/* Drawing */
+.visit__map {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  margin: 0;
+}
+
+.visit__frame {
+  /* Same proportions as the photo, so the lens centre always lands on the sign */
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+}
+
+/* The camera pulls back from the sign: this wrapper is scaled */
+.visit__zoom {
+  height: 100%;
+  will-change: transform;
+}
+
+.scene {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Layers rise / scale from their own box */
+.scene [data-visit] {
+  transform-box: fill-box;
+}
+
+.scene__sign-top {
+  font: 600 19px / 1 var(--font-body);
+  letter-spacing: 0.34em;
+  fill: var(--color-green);
+}
+
+.scene__sign-main {
+  font: italic 300 50px / 1 var(--font-display);
+  letter-spacing: -0.02em;
+  fill: var(--color-green);
+}
+
+.visit__map-note {
+  color: var(--color-ink-muted);
+}
+
+/* Info */
+.visit__panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.visit__row {
+  display: grid;
+  grid-template-columns: 8.5rem minmax(0, 1fr);
+  gap: 0.35rem var(--space-md);
+  padding: var(--space-md) 0;
+  border-bottom: 1px solid rgb(10 33 25 / 0.12);
+}
+
+.visit__row:first-child {
+  padding-top: 0;
+}
+
+.visit__row > :not(.label) {
+  grid-column: 2;
+}
+
+.visit__row > .label {
+  grid-row: 1 / span 3;
+  margin: 0;
+  padding-top: 0.35rem;
+  color: var(--color-ink-muted);
+}
+
+.visit__address {
+  display: grid;
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  line-height: 1.3;
+}
+
+.visit__address span:first-child {
+  color: var(--color-green);
+}
+
+.visit__near {
+  font-size: var(--text-sm);
+  color: var(--color-ink-muted);
+}
+
+.visit__phone {
+  justify-self: start;
+  color: var(--color-green);
+  font-weight: 500;
+  text-decoration: none;
+  border-bottom: 1px solid rgb(21 74 53 / 0.3);
+}
+
+.visit__phone:hover,
+.visit__phone:focus-visible {
+  border-bottom-color: currentColor;
+  outline: none;
+}
+
+.visit__note {
+  font-size: var(--text-sm);
+  line-height: 1.45;
+  color: var(--color-ink-muted);
+}
+
+.visit__hours {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.visit__hours li {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+.visit__hours li > span:last-child {
+  color: var(--color-ink-muted);
+}
+
+/* Today's group: a small gold marker */
+.visit__hours li.is-today > span:first-child {
+  position: relative;
+  font-weight: 600;
+  color: var(--color-green);
+}
+
+.visit__hours li.is-today > span:first-child::before {
+  content: '';
+  position: absolute;
+  top: 0.5em;
+  left: -0.9rem;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background: #e8c98a;
+}
+
+.visit__parking {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  line-height: 1.45;
+  color: var(--color-ink-muted);
+}
+
+.visit__parking strong {
+  font-weight: 600;
+  color: var(--color-green);
+}
+
+.visit__parking-icon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: var(--radius-sm);
+  background: var(--color-green);
+  color: var(--color-white);
+  font-size: var(--text-sm);
+  font-weight: 700;
+}
+
+.visit__primary {
+  display: inline-flex;
+  align-self: flex-start;
+  align-items: center;
+  padding: 0.95rem 1.4rem;
+  border-radius: 999px;
+  background: var(--color-green);
+  color: var(--color-white);
+  font: 500 var(--text-sm) / 1 var(--font-body);
+  text-decoration: none;
+  transition: background-color 0.4s var(--ease-out);
+}
+
+.visit__panel .visit__primary {
+  margin-top: var(--space-lg);
+}
+
+.visit__primary:hover {
+  background: var(--color-green-deep);
+}
+
+.visit__primary:focus-visible {
+  outline: 1px solid var(--color-green);
+  outline-offset: 3px;
+}
+
+@media (max-width: 1023.98px) {
+  .visit__layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .visit__row {
+    grid-template-columns: 1fr;
+  }
+
+  .visit__row > .label {
+    grid-row: auto;
+    padding-top: 0;
+  }
+
+  .visit__row > :not(.label) {
+    grid-column: auto;
+  }
+}

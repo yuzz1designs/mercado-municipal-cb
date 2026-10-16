@@ -1,0 +1,162 @@
+.welcome {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  padding: var(--gutter);
+  color: var(--color-green);
+  pointer-events: none;
+}
+
+.welcome__meta {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  color: var(--color-ink-muted);
+}
+
+.welcome__title {
+  font-family: var(--font-display);
+  font-size: var(--text-display);
+  font-weight: 350;
+  font-variation-settings: 'opsz' 144;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-display);
+}
+
+.welcome__word {
+  position: absolute;
+  will-change: transform;
+}
+
+.welcome__word--top {
+  top: 13vh;
+  left: var(--gutter);
+  transform-origin: left center;
+}
+
+.welcome__word--bottom {
+  right: var(--gutter);
+  bottom: 15vh;
+  transform-origin: right center;
+}
+
+.welcome__word--bottom {
+  display: flex;
+  align-items: baseline;
+  gap: clamp(1rem, 2.5vw, 2.5rem);
+}
+
+.welcome__place {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2.5vw, 2.5rem);
+  font-size: var(--text-xl);
+  font-style: italic;
+  font-weight: 300;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  white-space: nowrap;
+  color: var(--color-green-deep);
+}
+
+.welcome__rule {
+  display: block;
+  width: clamp(2rem, 6vw, 6rem);
+  height: 1px;
+  background: currentColor;
+  opacity: 0.5;
+}
+
+/* Bottom bar: scroll cue on the left, municipality logo on the right */
+.welcome__cue {
+  position: absolute;
+  right: var(--gutter);
+  bottom: var(--gutter);
+  left: var(--gutter);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-md);
+}
+
+.welcome__owner {
+  width: auto;
+  height: clamp(2.5rem, 1.6rem + 2vw, 4rem);
+}
+
+.welcome__cue-inner {
+  display: flex;
+  white-space: nowrap;
+  align-items: center;
+  gap: var(--space-sm);
+  color: var(--color-ink-muted);
+}
+
+.welcome__cue-line {
+  position: relative;
+  width: 4rem;
+  height: 1px;
+  overflow: hidden;
+  background: rgb(10 33 25 / 0.18);
+}
+
+.welcome__cue-line::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--color-green);
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: cue-line 2.8s var(--ease-in-out) infinite;
+}
+
+@keyframes cue-line {
+  0% {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+  50% {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+  50.01% {
+    transform-origin: right;
+  }
+  100% {
+    transform: scaleX(0);
+    transform-origin: right;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .welcome__word--top {
+    top: 16vh;
+  }
+
+  .welcome__word--bottom {
+    bottom: 20vh;
+  }
+
+  /* Mobile: the place drops under the word, right-aligned */
+  .welcome__word--bottom {
+    flex-direction: column-reverse;
+    align-items: flex-end;
+    gap: var(--space-xs);
+  }
+
+  .welcome__place {
+    font-size: var(--text-lg);
+  }
+
+  .welcome__rule,
+  .welcome__cue-line {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .welcome__cue-line::after {
+    animation: none;
+    transform: scaleX(1);
+  }
+}

@@ -1,0 +1,330 @@
+.header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  padding: var(--space-md) var(--gutter);
+  color: var(--color-white);
+  border-bottom: 1px solid transparent;
+  transition:
+    color 0.5s var(--ease-out),
+    background-color 0.5s var(--ease-out),
+    border-color 0.5s var(--ease-out),
+    padding 0.5s var(--ease-out),
+    transform 0.6s var(--ease-out);
+}
+
+/*
+ * Past the Home the header gets its own surface, tinted to the section below:
+ * green by default, paper over light sections, and the showcase green over it.
+ * No transform while visible: a transform would trap the fixed mobile menu.
+ */
+.header.is-solid {
+  padding-top: var(--space-sm);
+  padding-bottom: var(--space-sm);
+  background: rgb(15 52 38 / 0.88);
+  border-bottom-color: rgb(252 251 247 / 0.12);
+  backdrop-filter: blur(12px);
+}
+
+.header.is-solid.is-dark {
+  background: rgb(243 239 230 / 0.9);
+  border-bottom-color: rgb(10 33 25 / 0.1);
+}
+
+.header.is-solid.is-dark.is-on-green {
+  background: rgb(21 74 53 / 0.9);
+  border-bottom-color: rgb(252 251 247 / 0.12);
+}
+
+.header.is-hidden:not(.is-open) {
+  transform: translateY(-100%);
+}
+
+/* The open mobile menu sits on its own green panel */
+.header.is-open {
+  background: none;
+  border-bottom-color: transparent;
+  backdrop-filter: none;
+}
+
+/* Over light sections (data-header="dark"); the open mobile menu stays light on green */
+.header.is-dark:not(.is-open) {
+  color: var(--color-green-ink);
+}
+
+.header.is-dark.is-on-green:not(.is-open) {
+  color: var(--color-white);
+}
+
+.header a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.header__brand {
+  position: relative;
+  padding-right: var(--space-lg);
+  border-right: 1px solid color-mix(in srgb, currentColor 35%, transparent);
+  z-index: 1;
+  display: grid;
+  gap: 0.2rem;
+}
+
+.header__name {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+.header__brand .label {
+  font-size: 0.625rem;
+  opacity: 0.72;
+}
+
+/*
+ * Municipality logo. The official artwork has black type, so it sits on a small
+ * paper plate: a seal over the photography, invisible over light sections.
+ */
+.header__owner {
+  position: relative;
+  z-index: 1;
+  width: auto;
+  height: 2.75rem;
+  padding: 0.35rem 0.55rem;
+  border-radius: var(--radius-sm);
+  background: var(--color-paper);
+}
+
+.header__nav {
+  margin-left: auto;
+}
+
+/* Shopping bag button */
+.header__bag {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.55rem 0.45rem 0.85rem;
+  border: 1px solid color-mix(in srgb, currentColor 40%, transparent);
+  border-radius: 999px;
+  background: none;
+  color: inherit;
+  font: 500 var(--text-sm) / 1 var(--font-body);
+  cursor: pointer;
+  transition: border-color 0.4s var(--ease-out);
+}
+
+.header__bag:hover {
+  border-color: currentColor;
+}
+
+.header__bag:focus-visible {
+  outline: 1px solid currentColor;
+  outline-offset: 4px;
+}
+
+/* Simple bag outline: body + handle */
+.header__bag-icon {
+  position: relative;
+  width: 0.8rem;
+  height: 0.7rem;
+  margin-top: 0.2rem;
+  border: 1.5px solid currentColor;
+  border-radius: 0 0 3px 3px;
+}
+
+.header__bag-icon::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 100%;
+  width: 0.4rem;
+  height: 0.3rem;
+  border: 1.5px solid currentColor;
+  border-bottom: 0;
+  border-radius: 0.3rem 0.3rem 0 0;
+  transform: translateX(-50%);
+}
+
+.header__bag-count {
+  display: grid;
+  place-items: center;
+  min-width: 1.4rem;
+  height: 1.4rem;
+  padding: 0 0.35rem;
+  border-radius: 999px;
+  background: var(--color-white);
+  color: var(--color-green);
+  font-size: 0.7rem;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Over light sections the count inverts */
+.header.is-dark:not(.is-open, .is-on-green) .header__bag-count {
+  background: var(--color-green-ink);
+  color: var(--color-paper);
+}
+
+.header__nav ul {
+  display: flex;
+  gap: clamp(1.25rem, 2.6vw, 2.75rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.header__nav a {
+  position: relative;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.header__nav a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.3em;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.6s var(--ease-out);
+}
+
+.header__nav a:hover::after,
+.header__nav a:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.header a:focus-visible,
+.header__toggle:focus-visible {
+  outline: 1px solid currentColor;
+  outline-offset: 6px;
+}
+
+.header__toggle {
+  display: none;
+  margin-left: auto;
+  position: relative;
+  z-index: 1;
+  padding: var(--space-xs) 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+/* Below desktop the nav becomes a full-screen panel */
+@media (max-width: 899.98px) {
+  .header__toggle {
+    display: block;
+  }
+
+  .header {
+    gap: var(--space-sm);
+  }
+
+  .header__brand {
+    padding-right: var(--space-sm);
+  }
+
+  .header__owner {
+    height: 2.25rem;
+  }
+
+  .header__name {
+    font-size: 1.05rem;
+    white-space: nowrap;
+  }
+
+  .header__brand .label {
+    white-space: nowrap;
+  }
+
+  .header__nav {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: flex-end;
+    padding: var(--gutter);
+    padding-bottom: calc(var(--gutter) * 2);
+    background: var(--color-green-deep);
+    clip-path: inset(0 0 100% 0);
+    visibility: hidden;
+    transition:
+      clip-path 0.9s var(--ease-in-out),
+      visibility 0s linear 0.9s;
+  }
+
+  .header.is-open .header__nav {
+    clip-path: inset(0 0 0 0);
+    visibility: visible;
+    transition:
+      clip-path 0.9s var(--ease-in-out),
+      visibility 0s;
+  }
+
+  .header__nav ul {
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .header__nav a {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 11vw, 4.5rem);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+
+  .header__nav a::after {
+    display: none;
+  }
+}
+
+@media (max-width: 479.98px) {
+  /* Narrow phones: the bag keeps only its icon and count */
+  .header__bag-label {
+    display: none;
+  }
+
+  .header__bag {
+    padding-left: 0.65rem;
+  }
+
+  .header {
+    gap: var(--space-xs);
+  }
+
+  .header__brand {
+    padding-right: 0;
+    border-right: 0;
+  }
+
+  .header__name {
+    font-size: 0.95rem;
+  }
+
+  .header__owner {
+    height: 1.9rem;
+    padding: 0.25rem 0.4rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header__nav,
+  .header.is-open .header__nav,
+  .header__nav a::after {
+    transition: none;
+  }
+}

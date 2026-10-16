@@ -1,0 +1,24 @@
+/*
+ * Tall scroll track; the stage stays fixed in view while the timeline plays.
+ * --entrance-length (in viewports) is set from the timeline in animation/entrance.ts.
+ */
+.entrance {
+  --pace: 1;
+  position: relative;
+  height: calc((var(--entrance-length, 3) * var(--pace) + 1) * 100vh);
+}
+
+.entrance__stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  background: var(--color-paper);
+}
+
+@media (max-width: 767.98px) {
+  .entrance {
+    --pace: 0.8;
+  }
+}

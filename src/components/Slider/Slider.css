@@ -1,0 +1,164 @@
+.slider {
+  --frame: min(17vw, 27vh);
+  --frame-main: min(23vw, 35vh);
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(0.75rem, 1.6vw, 1.75rem);
+  pointer-events: auto;
+}
+
+.slider__item {
+  display: grid;
+  gap: var(--space-sm);
+  width: var(--frame);
+}
+
+/* The middle frame leads; side frames sit a little lower */
+.slider__item:nth-child(2) {
+  width: var(--frame-main);
+}
+
+.slider__item:not(:nth-child(2)) {
+  margin-top: calc((var(--frame-main) - var(--frame)) * 0.6);
+}
+
+.slider__frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+  will-change: transform, clip-path;
+}
+
+.slider__slide {
+  position: absolute;
+  inset: 0;
+  display: block;
+  overflow: hidden;
+  color: inherit;
+  text-decoration: none;
+  will-change: clip-path;
+}
+
+.slider__slide .photo {
+  will-change: transform;
+}
+
+/* Soft veil over the image while the info is shown */
+.slider__slide::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgb(10 33 25 / 0.35);
+  opacity: 0;
+  transition: opacity 0.6s var(--ease-out);
+}
+
+/* Hover / focus: the excerpt rises from the bottom edge of the frame */
+.slider__info {
+  position: absolute;
+  right: 0.5rem;
+  bottom: 0.5rem;
+  left: 0.5rem;
+  z-index: 1;
+  display: grid;
+  gap: 0.6rem;
+  padding: 0.9rem 0.95rem 1rem;
+  border-radius: var(--radius-sm);
+  background: var(--color-paper);
+  color: var(--color-green-ink);
+  clip-path: inset(100% 0 0 0 round var(--radius-sm));
+  transition: clip-path 0.7s var(--ease-out);
+}
+
+.slider__excerpt {
+  font-size: var(--text-sm);
+  line-height: 1.45;
+  transform: translateY(0.5rem);
+  transition: transform 0.7s var(--ease-out);
+}
+
+.slider__cta {
+  color: var(--color-green);
+}
+
+/* Captions under the frames, stacked in one cell and swapped by the slider */
+.slider__captions {
+  display: grid;
+}
+
+.slider__caption {
+  grid-area: 1 / 1;
+  display: grid;
+  align-content: start;
+  gap: 0.35rem;
+}
+
+.slider__meta {
+  font-size: 0.625rem;
+  color: color-mix(in srgb, currentColor 70%, transparent);
+}
+
+.slider__title {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 0.75rem + 0.55vw, 1.4rem);
+  font-weight: 350;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.slider__slide:hover::after,
+.slider__slide:focus-visible::after {
+  opacity: 1;
+}
+
+.slider__slide:hover .slider__info,
+.slider__slide:focus-visible .slider__info {
+  clip-path: inset(0 0 0 0 round var(--radius-sm));
+}
+
+.slider__slide:hover .slider__excerpt,
+.slider__slide:focus-visible .slider__excerpt {
+  transform: none;
+}
+
+.slider__slide:focus-visible {
+  outline: 1px solid var(--color-white);
+  outline-offset: -6px;
+}
+
+@media (hover: none) {
+  /* Touch: no hover, so the leading (middle) frame always shows its info */
+  .slider__item:nth-child(2) .slider__info {
+    clip-path: inset(0 0 0 0 round var(--radius-sm));
+  }
+
+  .slider__item:nth-child(2) .slider__excerpt {
+    transform: none;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .slider {
+    --frame: 21vw;
+    --frame-main: 44vw;
+  }
+
+  /* Small screens: only the leading frame keeps its caption */
+  .slider__item:not(:nth-child(2)) .slider__captions {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slider__slide::after,
+  .slider__info,
+  .slider__excerpt {
+    transition: none;
+  }
+}

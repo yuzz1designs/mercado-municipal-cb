@@ -1,0 +1,182 @@
+.footer {
+  position: relative;
+  overflow: hidden;
+  padding: var(--space-2xl) var(--gutter) var(--space-md);
+  background: var(--color-green-ink);
+  color: var(--color-white);
+}
+
+.footer a,
+.footer button {
+  color: inherit;
+}
+
+.footer__top {
+  display: grid;
+  /* Intro · Navegar · Visitar · Contactos */
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.6fr) minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: var(--space-lg) var(--space-xl);
+  padding-bottom: var(--space-xl);
+  border-bottom: 1px solid rgb(252 251 247 / 0.14);
+}
+
+.footer__intro {
+  display: grid;
+  align-content: space-between;
+  gap: var(--space-lg);
+}
+
+.footer__lead {
+  max-width: 18ch;
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 300;
+  line-height: 1.15;
+}
+
+.footer__lead em {
+  color: #e8c98a;
+}
+
+/* Municipality logo on a paper plate (the official artwork has black type) */
+.footer__owner {
+  justify-self: start;
+  width: auto;
+  height: 3.25rem;
+  padding: 0.4rem 0.6rem;
+  border-radius: var(--radius-sm);
+  background: var(--color-paper);
+}
+
+.footer__column {
+  display: grid;
+  align-content: start;
+  gap: var(--space-md);
+}
+
+.footer__column h2 {
+  margin: 0;
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid rgb(252 251 247 / 0.14);
+  color: rgb(252 251 247 / 0.55);
+}
+
+.footer__column ul,
+.footer__bottom ul {
+  display: grid;
+  gap: 0.45rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.footer__column a,
+.footer__column button,
+.footer__bottom a,
+.footer__top-link {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 1px;
+  transition: background-size 0.6s var(--ease-out);
+}
+
+.footer__column a:hover,
+.footer__column button:hover,
+.footer__bottom a:hover,
+.footer__top-link:hover,
+.footer :focus-visible {
+  background-size: 100% 1px;
+  outline: none;
+}
+
+.footer address {
+  display: grid;
+  font-style: normal;
+  line-height: 1.45;
+  color: rgb(252 251 247 / 0.8);
+}
+
+.footer__hours {
+  max-width: 17rem;
+}
+
+.footer__hours li {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  font-size: var(--text-sm);
+  color: rgb(252 251 247 / 0.7);
+}
+
+/* Wordmark across the full width */
+.footer__wordmark {
+  display: flex;
+  justify-content: center;
+  margin: var(--space-xl) 0 var(--space-md);
+  font-family: var(--font-display);
+  /* Sized to span the content width */
+  font-size: 14.2vw;
+  font-weight: 300;
+  font-variation-settings: 'opsz' 144;
+  line-height: 0.9;
+  letter-spacing: -0.045em;
+  white-space: nowrap;
+  color: rgb(252 251 247 / 0.92);
+}
+
+.footer__char-mask {
+  display: inline-block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+}
+
+.footer__char-mask > span {
+  display: inline-block;
+}
+
+.footer__bottom {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-sm) var(--space-lg);
+  padding-top: var(--space-md);
+  border-top: 1px solid rgb(252 251 247 / 0.14);
+  font-size: var(--text-sm);
+  color: rgb(252 251 247 / 0.6);
+}
+
+.footer__bottom ul {
+  display: flex;
+  gap: var(--space-md);
+}
+
+.footer__top-link {
+  justify-self: end;
+}
+
+@media (max-width: 1023.98px) {
+  .footer__top {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767.98px) {
+  .footer__top {
+    grid-template-columns: 1fr;
+  }
+
+  .footer__bottom {
+    grid-template-columns: 1fr;
+  }
+
+  .footer__top-link {
+    justify-self: start;
+  }
+}
